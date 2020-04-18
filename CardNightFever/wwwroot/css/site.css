@@ -181,3 +181,10 @@ app {
         display: block;
     }
 }
+
+
+
+Card {
+    border: black;
+    border-width: medium;
+}
