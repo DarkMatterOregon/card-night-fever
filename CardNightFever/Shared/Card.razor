@@ -1,10 +1,19 @@
 ﻿@using CardNightFever.Data
-<div>
-    This is a card
-</div>
+
+    <div class="card">
+        This is a card
+        <div>
+            Suite: @PlayingCard.Suit
+        </div>
+        <div>
+            Rank: @PlayingCard.Rank
+        </div>
+
+    </div>
 
 @code {
+    [Parameter]
+    public PlayingCard PlayingCard { get; set; }
 
-    private PlayingCard _card;
 
 }
