@@ -9,9 +9,24 @@ namespace CardNightFever.Data
 {
     public class PlayerHand
     {
+        #region Variables
+        // stores the player's id
+        protected int playerId;
+        #endregion Variables
+
+        #region Properties
+        /// <summary>
+        /// Indicates the player's ID. Needs to be unique.
+        /// </summary>
         [Required]
-        public int PlayerId { get; set; }
+        public int PlayerId { get; }
+        /// <summary>
+        /// The list of cards contained in the Player's Hand
+        /// </summary>
         protected List<PlayingCard> Cards { get; set; }
+        /// <summary>
+        /// Indicates if the player has no cards.
+        /// </summary>
         public bool IsEmpty 
         { 
             get
@@ -19,6 +34,9 @@ namespace CardNightFever.Data
                 return Cards.Count == 0;
             }
         }
+        /// <summary>
+        /// Indicates if a player has fewer than 11 cards and needs to draw.
+        /// </summary>
         public bool NeedDraw
         {
             get
@@ -26,6 +44,9 @@ namespace CardNightFever.Data
                 return Cards.Count < 11;
             }
         }
+        /// <summary>
+        /// The amount of cards in a Player's Hand
+        /// </summary>
         public int HandSize
         {
             get
@@ -33,7 +54,20 @@ namespace CardNightFever.Data
                 return Cards.Count;
             }
         }
+        #endregion Properties
 
+        #region Constructors
+        public PlayerHand(int id)
+        {
+            PlayerId = id;
+        }
+        #endregion Constructors
+
+        #region Methods
+        /// <summary>
+        /// Draws the top card off of the Deck (deck).
+        /// </summary>
+        /// <param name="deck"></param>
         protected void DrawCard(Deck deck)
         {
             if (NeedDraw)
@@ -42,6 +76,11 @@ namespace CardNightFever.Data
             }
         }
 
+        /// <summary>
+        /// Draws multiple (amount) cards off the top of the Deck (deck).
+        /// </summary>
+        /// <param name="deck"></param>
+        /// <param name="amount"></param>
         protected void DrawMultcards(Deck deck, int amount)
         {
             for (int i = amount; i < amount; i++)
@@ -53,6 +92,11 @@ namespace CardNightFever.Data
             }
         }
 
+        /// <summary>
+        /// Draws cards off of the top of the Deck (deck) until the hand has 11
+        /// cards.
+        /// </summary>
+        /// <param name="deck"></param>
         protected void FillHand(Deck deck)
         {
             while (NeedDraw)
@@ -61,6 +105,12 @@ namespace CardNightFever.Data
             }
         }
 
+        /// <summary>
+        /// Removes the Card by index (index) and returns it.
+        /// Returns null if no card is found.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns>PlayingCard</returns>
         protected PlayingCard PopCard(int index)
         {
             if (!IsEmpty)
@@ -75,6 +125,13 @@ namespace CardNightFever.Data
             }
         }
 
+        /// <summary>
+        /// Removes a card based on the Playing Card (card) that is passed in
+        /// and returns it.
+        /// Returns null if card doesn't exist in player's hand.
+        /// </summary>
+        /// <param name="card"></param>
+        /// <returns>PlayingCard</returns>
         protected PlayingCard PopCard(PlayingCard card)
         {
             if (!IsEmpty)
@@ -96,6 +153,13 @@ namespace CardNightFever.Data
             }
         }
 
+        /// <summary>
+        /// Removes one card from the player's hand by index (cardIndex) and
+        /// places it into the discard pile (pile). If card doesn't exist,
+        /// it won't be placed in the discard pile.
+        /// </summary>
+        /// <param name="pile"></param>
+        /// <param name="cardIndex"></param>
         protected void Discard(DiscardPile pile, int cardIndex)
         {
             PlayingCard card = PopCard(cardIndex);
@@ -105,6 +169,13 @@ namespace CardNightFever.Data
             }
         }
 
+        /// <summary>
+        /// Removes one card from the player's hand based on card (cardIn)
+        /// passed in and places it into the discard pile (pile).
+        /// If card doesn't exist, nothing happens.
+        /// </summary>
+        /// <param name="pile"></param>
+        /// <param name="cardIn"></param>
         protected void Discard(DiscardPile pile, PlayingCard cardIn)
         {
             PlayingCard card = PopCard(cardIn);
@@ -113,5 +184,6 @@ namespace CardNightFever.Data
                 pile.AddCard(card);
             }
         }
+        #endregion Methods
     }
 }
