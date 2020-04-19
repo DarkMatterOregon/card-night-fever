@@ -1,0 +1,38 @@
+﻿@page "/cards"
+@using CardNightFever.Data
+@using CardNightFever.Shared
+<h1>Cards</h1>
+
+
+@if (_cards == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var card in _cards)
+    {
+        <Card PlayingCard="@card"></Card>
+        
+    }
+}
+
+
+@code {
+    private PlayingCard[] _cards;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var cards = new List<PlayingCard>();
+        foreach (Suit suit in Enum.GetValues(typeof(Suit)))
+        {
+            foreach (Rank rank in Enum.GetValues(typeof(Rank)))
+            {
+                cards.Add(new PlayingCard() { Rank = rank, Suit = suit });
+            }
+        }
+        _cards = cards.ToArray();
+    }
+
+    
+}
