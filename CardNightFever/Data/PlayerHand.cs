@@ -21,7 +21,7 @@ namespace CardNightFever.Data
         /// <summary>
         /// The list of cards contained in the Player's Hand
         /// </summary>
-        protected List<PlayingCard> Cards { get; set; }
+        public List<PlayingCard> Cards { get; set; }
         /// <summary>
         /// Indicates if the player has no cards.
         /// </summary>
@@ -67,7 +67,7 @@ namespace CardNightFever.Data
         /// Draws the top card off of the Deck (deck).
         /// </summary>
         /// <param name="deck"></param>
-        protected void DrawCard(Deck deck)
+        public void DrawCard(Deck deck)
         {
             if (NeedDraw)
             {
@@ -80,7 +80,7 @@ namespace CardNightFever.Data
         /// </summary>
         /// <param name="deck"></param>
         /// <param name="amount"></param>
-        protected void DrawMultcards(Deck deck, int amount)
+        public void DrawMultcards(Deck deck, int amount)
         {
             for (int i = amount; i < amount; i++)
             {
@@ -96,7 +96,7 @@ namespace CardNightFever.Data
         /// cards.
         /// </summary>
         /// <param name="deck"></param>
-        protected void FillHand(Deck deck)
+        public void FillHand(Deck deck)
         {
             while (NeedDraw)
             {
@@ -110,7 +110,7 @@ namespace CardNightFever.Data
         /// </summary>
         /// <param name="index"></param>
         /// <returns>PlayingCard</returns>
-        protected PlayingCard PopCard(int index)
+        public PlayingCard PopCard(int index)
         {
             if (!IsEmpty)
             {
@@ -131,7 +131,7 @@ namespace CardNightFever.Data
         /// </summary>
         /// <param name="card"></param>
         /// <returns>PlayingCard</returns>
-        protected PlayingCard PopCard(PlayingCard card)
+        public PlayingCard PopCard(PlayingCard card)
         {
             if (!IsEmpty)
             {
@@ -159,7 +159,7 @@ namespace CardNightFever.Data
         /// </summary>
         /// <param name="pile"></param>
         /// <param name="cardIndex"></param>
-        protected void Discard(DiscardPile pile, int cardIndex)
+        public void Discard(DiscardPile pile, int cardIndex)
         {
             PlayingCard card = PopCard(cardIndex);
             if (card != null)
@@ -175,7 +175,7 @@ namespace CardNightFever.Data
         /// </summary>
         /// <param name="pile"></param>
         /// <param name="cardIn"></param>
-        protected void Discard(DiscardPile pile, PlayingCard cardIn)
+        public void Discard(DiscardPile pile, PlayingCard cardIn)
         {
             PlayingCard card = PopCard(cardIn);
             if (card != null)

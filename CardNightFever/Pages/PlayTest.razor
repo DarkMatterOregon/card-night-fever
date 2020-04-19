@@ -1,0 +1,107 @@
+﻿@page "/GhettoPlayTest"
+@using CardNightFever.Data;
+@using CardNightFever.Shared;
+@using Blazor.DragDrop.Core;
+
+<h3>PlayTest</h3>
+
+@if (_deck == null || players[0] == null || players[1] == null || _pile == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <h4>The deck</h4>
+    @if (!_deck.IsEmpty)
+    {
+        <Dropzone Name="Deck">
+            @foreach (var card in _deck.Cards)
+            {
+                <Draggable Tag='card.Rank.ToString() + "_" + card.Suit.ToString()'>
+                    <Card PlayingCard="@card" />
+                </Draggable>
+            }
+        </Dropzone>
+    }
+    else
+    {
+        <button onclick="@CreateDeck(_deck)">Create Deck</button>
+    }
+    <h4>Player 1</h4>
+    @if (players[0].Cards.Count != 0)
+    {
+        <Dropzone>
+            @foreach (var card in players[0].Cards)
+            {
+                <Draggable Tag='card.Rank.ToString() + "_" + card.Suit.ToString()'>
+                    <Card PlayingCard="@card" />
+                </Draggable>
+            }
+        </Dropzone>
+    }
+    else
+    {
+        <button onclick="@DrawFullHand(players[0])">Player 1 Draw</button>
+    }
+    <h4>Player 2</h4>
+    @if (players[1].Cards.Count != 0)
+    {
+        <Dropzone>
+            @foreach (var card in players[1].Cards)
+            {
+                <Draggable Tag='card.Rank.ToString() + "_" + card.Suit.ToString()'>
+                    <Card PlayingCard="@card" />
+                </Draggable>
+            }
+        </Dropzone>
+    }
+    else
+    {
+        <button onclick="@DrawFullHand(players[1])">Player 2 Draw</button>
+    }
+    <h4>Discard pile</h4>
+    @if (_pile.Cards.Count != 0)
+    {
+        <Dropzone>
+            @foreach (var card in _pile.Cards)
+            {
+                <Draggable Tag='card.Rank.ToString() + "_" + card.Suit.ToString()'>
+                    <Card PlayingCard="@card" />
+                </Draggable>
+            }
+        </Dropzone>
+    }
+}
+
+@code {
+    private Deck _deck;
+    private List<PlayerHand> players = new List<PlayerHand>();
+    private DiscardPile _pile;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _deck = new Deck();
+        players.Add(new PlayerHand(1));
+        players.Add(new PlayerHand(2));
+        _pile = new DiscardPile();
+    }
+
+    protected async Task CreateDeck(Deck deck)
+    {
+        deck.CreateDeck();
+        this.StateHasChanged();
+    }
+
+    protected async Task DrawFullHand(PlayerHand player)
+    {
+        if (_deck.HasMin)
+        {
+            player.FillHand(_deck);
+        }
+        else
+        {
+
+        }
+        this.StateHasChanged();
+    }
+}

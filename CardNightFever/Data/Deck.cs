@@ -22,6 +22,16 @@ namespace CardNightFever.Data
                 return Cards.Count == 0;
             }
         }
+        /// <summary>
+        /// Indicates if the Deck contains enough cards for a full hand.
+        /// </summary>
+        public bool HasMin
+        {
+            get
+            {
+                return Cards.Count >= 11; 
+            }
+        }
         #endregion Properties
 
         #region Constructors
@@ -91,11 +101,10 @@ namespace CardNightFever.Data
         public void ShuffleCards()
         {
             Random random = new Random();
-            int cardsCount = Cards.Count;
 
-            for (int i = 0; i < cardsCount; i++)
+            for (int i = 0; i < Cards.Count; i++)
             {
-                int index = random.Next(0, cardsCount);
+                int index = random.Next(0, Cards.Count);
                 PlayingCard temp = Cards[i];
                 Cards[i] = Cards[index];
                 Cards[index] = temp;
