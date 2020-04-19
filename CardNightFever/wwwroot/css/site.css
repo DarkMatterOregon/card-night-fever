@@ -185,12 +185,19 @@ app {
 
 
 .playing-card {
-    max-height: 100px;
-    max-height: 125px;
+    position: relative;
+    display: inline-block;
+    background: transparent;
+    color: #000;
+    width: 150px;
+    height: 200px;
+    margin-right: 20px;
+    cursor: pointer;
 }
 
 .playing-card > img {
     max-width: 100%;
     height: auto;
+
 }
 
