@@ -9,11 +9,44 @@ namespace CardNightFever.Data
     {
         public List<PlayingCard> Cards { get; set; }
 
+        public void CreateDeck()
+        {
+            foreach (Suit suit in Enum.GetValues(typeof(Suit)))
+            {
+                foreach (Rank rank in Enum.GetValues(typeof(Rank)))
+                {
+                    Cards.Add(new PlayingCard() { Rank = rank, Suit = suit });
+                }
+            }
+        }
+
+        public int HowManyDecks(int playerCount)
+        {
+            return (int)Math.Ceiling((decimal)playerCount / 2);
+        }
+
+        public void CreateMultDecks(int deckCount)
+        {
+            for (int i = 0; i < deckCount; i++)
+            {
+                CreateDeck();
+            }
+        }
+
+        public bool IsEmpty()
+        {
+            return Cards.Count > 0;
+        }
+
         public PlayingCard DrawCard()
         {
-            PlayingCard target = Cards.First();
-            Cards.Remove(target);
-            return target;
+            if (!IsEmpty())
+            {
+                PlayingCard target = Cards.First();
+                Cards.Remove(target);
+                return target;
+            }
+            return null;
         }
 
         public void ShuffleCards()
