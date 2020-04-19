@@ -1,12 +1,12 @@
 ﻿@using CardNightFever.Data
 
-    <div class="playing-card">
-        <img src="@PlayingCard.ImageSrc"/> 
+    <div class="playing-card" 
+         style='background-image: url("@PlayingCard.ImageSrc")'>
+       
     </div>
 
 @code {
     [Parameter]
     public PlayingCard PlayingCard { get; set; }
-
 
 }
