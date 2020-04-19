@@ -184,7 +184,13 @@ app {
 
 
 
-Card {
-    border: black;
-    border-width: medium;
+.playing-card {
+    max-height: 100px;
+    max-height: 125px;
 }
+
+.playing-card > img {
+    max-width: 100%;
+    height: auto;
+}
+

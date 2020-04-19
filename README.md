@@ -10,3 +10,5 @@ You'll need
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 
 Just open the solution and run it.  It's Asp.Net with a few twists.
+
+Origional cards SVGs By [Дмитрий Фомин (Dmitry Fomin) - Own work, CC0](https://commons.wikimedia.org/w/index.php?curid=56582616)
