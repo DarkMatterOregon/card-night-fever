@@ -1,0 +1,43 @@
+﻿@page "/dragdrop"
+@using CardNightFever.Data
+@using CardNightFever.Shared
+@using Blazor.DragDrop.Core
+<h1>Drag Drop</h1>
+
+
+@if (_cards == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <Dropzone>
+
+        @foreach (var card in _cards)
+        {
+            <Draggable>
+                <Card PlayingCard="@card"></Card>
+            </Draggable>
+        }
+    </Dropzone>
+}
+
+
+@code {
+    private PlayingCard[] _cards;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var cards = new List<PlayingCard>();
+        foreach (Suit suit in Enum.GetValues(typeof(Suit)))
+        {
+            foreach (Rank rank in Enum.GetValues(typeof(Rank)))
+            {
+                cards.Add(new PlayingCard() { Rank = rank, Suit = suit });
+            }
+        }
+        _cards = cards.ToArray();
+    }
+
+
+}
