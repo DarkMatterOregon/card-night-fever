@@ -1,7 +1,8 @@
-﻿@page "/cards"
+﻿@page "/dragdrop"
 @using CardNightFever.Data
 @using CardNightFever.Shared
-<h1>Cards</h1>
+@using Blazor.DragDrop.Core
+<h1>Drag Drop</h1>
 
 
 @if (_cards == null)
@@ -10,11 +11,15 @@
 }
 else
 {
-    @foreach (var card in _cards)
-    {
-        <Card PlayingCard="@card"></Card>
-        
-    }
+    <Dropzone>
+
+        @foreach (var card in _cards)
+        {
+            <Draggable>
+                <Card PlayingCard="@card"></Card>
+            </Draggable>
+        }
+    </Dropzone>
 }
 
 
@@ -34,5 +39,5 @@ else
         _cards = cards.ToArray();
     }
 
-    
+
 }
