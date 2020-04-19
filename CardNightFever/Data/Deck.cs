@@ -91,12 +91,14 @@ namespace CardNightFever.Data
         public void ShuffleCards()
         {
             Random random = new Random();
+            int cardsCount = Cards.Count;
 
-            for (int i = 0; i < Cards.Count; i++)
+            for (int i = 0; i < cardsCount; i++)
             {
-                PlayingCard c = Cards[i];
-                Cards.Insert(random.Next(0, Cards.Count), c);
-                Cards.Remove(c);
+                int index = random.Next(0, cardsCount);
+                PlayingCard temp = Cards[i];
+                Cards[i] = Cards[index];
+                Cards[index] = temp;
             }
         }
         #endregion Methods
