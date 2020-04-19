@@ -27,7 +27,7 @@ namespace CardNightFever.Data
         #region Constructors
         public Deck()
         {
-
+            Cards = new List<PlayingCard>();
         }
         #endregion Constructors
 

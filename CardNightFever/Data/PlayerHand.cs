@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 using CardNightFever.Shared;
 
 namespace CardNightFever.Data
@@ -18,7 +17,6 @@ namespace CardNightFever.Data
         /// <summary>
         /// Indicates the player's ID. Needs to be unique.
         /// </summary>
-        [Required]
         public int PlayerId { get; }
         /// <summary>
         /// The list of cards contained in the Player's Hand
@@ -60,6 +58,7 @@ namespace CardNightFever.Data
         public PlayerHand(int id)
         {
             PlayerId = id;
+            Cards = new List<PlayingCard>();
         }
         #endregion Constructors
 
