@@ -2,10 +2,12 @@
 @using CardNightFever.Data;
 @using CardNightFever.Shared;
 @using Blazor.DragDrop.Core;
+@using CardNightFever.Services
+@inject DealerService Dealer
 
 <h3>PlayTest</h3>
 
-@if (_deck == null || players[0] == null || players[1] == null || _pile == null)
+@if (_deck == null || Dealer.Players[0] == null || Dealer.Players[1] == null || Dealer.DiscardPile == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -30,7 +32,7 @@ else
     }
     int playerNum = 1;
     string playerText = "player " + playerNum.ToString();
-    foreach (PlayerHand p in players)
+    foreach (PlayerHand p in Dealer.Players)
     {
         <h4>Player @playerNum</h4>
         @if (!p.IsEmpty)
@@ -51,10 +53,10 @@ else
         playerNum++;
     }
     <h4>Discard pile</h4>
-    @if (_pile.Cards.Count != 0)
+    @if (Dealer.DiscardPile.Cards.Count != 0)
     {
         <Dropzone Name="Discard" Class="row">
-            @foreach (var card in _pile.Cards)
+            @foreach (var card in Dealer.DiscardPile.Cards)
             {
                 <Draggable Tag='card.Rank.ToString() + "_" + card.Suit.ToString()'>
                     <Card PlayingCard="@card" />
@@ -66,21 +68,17 @@ else
 
 @code {
     private Deck _deck;
-    private List<PlayerHand> players = new List<PlayerHand>();
-    private DiscardPile _pile;
-
+   
     protected override async Task OnInitializedAsync()
     {
-        _deck = new Deck();
-        players.Add(new PlayerHand(1));
-        players.Add(new PlayerHand(2));
-        _pile = new DiscardPile();
+        Dealer.NewTable(2);
+        _deck = Dealer.Deck;  
     }
 
     protected async Task CreateDeck(Deck deck)
     {
         deck.CreateDeck();
-        this.StateHasChanged();
+        this.StateHasChanged(); // might not need this here
     }
 
     protected async Task DrawFullHand(PlayerHand player)
@@ -113,7 +111,7 @@ else
     {
         if (!_deck.IsEmpty)
         {
-            player.Discard(_pile, index);
+            player.Discard(Dealer.DiscardPile, index);
         }
         else
         {
