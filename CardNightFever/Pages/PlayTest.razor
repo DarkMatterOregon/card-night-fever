@@ -5,34 +5,18 @@
 
 <h3>PlayTest</h3>
 
-@if (_deck == null || players[0] == null || players[1] == null || _pile == null)
+@if (_deck == null || players.Count < 1 || _pile == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <h4>The deck</h4>
-    @if (!_deck.IsEmpty)
-    {
-        <Dropzone Name="Deck" Class="row">
-            @foreach (var card in _deck.Cards)
-            {
-                int identity = 0;
-                <Draggable Name="@identity.ToString()">
-                    <Card PlayingCard="@card" />
-                </Draggable>
-            }
-        </Dropzone>
-    }
-    else
-    {
-        <button onclick="@CreateDeck(_deck)">Create Deck</button>
-    }
+    <h4>The deck count: @_deck.Cards.Count</h4>
     int playerNum = 1;
     string playerText = "player " + playerNum.ToString();
     foreach (PlayerHand p in players)
     {
-        <h4>Player @playerNum</h4>
+        <h4>Player @playerNum Hand Count: @p.HandSize</h4>
         @if (!p.IsEmpty)
         {
             <Dropzone Name="@playerText" Class="row">
@@ -50,18 +34,7 @@ else
         }
         playerNum++;
     }
-    <h4>Discard pile</h4>
-    @if (_pile.Cards.Count != 0)
-    {
-        <Dropzone Name="Discard" Class="row">
-            @foreach (var card in _pile.Cards)
-            {
-                <Draggable Tag='card.Rank.ToString() + "_" + card.Suit.ToString()'>
-                    <Card PlayingCard="@card" />
-                </Draggable>
-            }
-        </Dropzone>
-    }
+    <h4>Discard pile Count: @_pile.Cards.Count</h4>
 }
 
 @code {
