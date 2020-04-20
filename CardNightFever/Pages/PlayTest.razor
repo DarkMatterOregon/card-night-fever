@@ -14,10 +14,11 @@ else
     <h4>The deck</h4>
     @if (!_deck.IsEmpty)
     {
-        <Dropzone Name="Deck">
+        <Dropzone Name="Deck" Class="row">
             @foreach (var card in _deck.Cards)
             {
-                <Draggable Tag='card.Rank.ToString() + "_" + card.Suit.ToString()'>
+                int identity = 0;
+                <Draggable Name="@identity.ToString()">
                     <Card PlayingCard="@card" />
                 </Draggable>
             }
@@ -28,9 +29,9 @@ else
         <button onclick="@CreateDeck(_deck)">Create Deck</button>
     }
     <h4>Player 1</h4>
-    @if (players[0].Cards.Count != 0)
+    @if (players[0].IsEmpty)
     {
-        <Dropzone>
+        <Dropzone Name="player 1" Class="row">
             @foreach (var card in players[0].Cards)
             {
                 <Draggable Tag='card.Rank.ToString() + "_" + card.Suit.ToString()'>
@@ -44,9 +45,9 @@ else
         <button onclick="@DrawFullHand(players[0])">Player 1 Draw</button>
     }
     <h4>Player 2</h4>
-    @if (players[1].Cards.Count != 0)
+    @if (players[1].IsEmpty)
     {
-        <Dropzone>
+        <Dropzone Name="player 2" Class="row">
             @foreach (var card in players[1].Cards)
             {
                 <Draggable Tag='card.Rank.ToString() + "_" + card.Suit.ToString()'>
@@ -62,7 +63,7 @@ else
     <h4>Discard pile</h4>
     @if (_pile.Cards.Count != 0)
     {
-        <Dropzone>
+        <Dropzone Name="Discard" Class="row">
             @foreach (var card in _pile.Cards)
             {
                 <Draggable Tag='card.Rank.ToString() + "_" + card.Suit.ToString()'>
@@ -103,5 +104,36 @@ else
 
         }
         this.StateHasChanged();
+    }
+
+    protected async Task DrawCard(PlayerHand player)
+    {
+        if (!_deck.IsEmpty)
+        {
+            player.DrawCard(_deck);
+        }
+        else
+        {
+
+        }
+        this.StateHasChanged();
+    }
+
+    protected async Task Discard(PlayerHand player, int index)
+    {
+        if (!_deck.IsEmpty)
+        {
+            player.Discard(_pile, index);
+        }
+        else
+        {
+
+        }
+        this.StateHasChanged();
+    }
+
+    protected async Task<int> GetScore(PlayerHand player)
+    {
+        return player.Score;
     }
 }
