@@ -182,8 +182,6 @@ app {
     }
 }
 
-
-
 .playing-card {
     position: relative;
     display: inline-block;
@@ -193,6 +191,17 @@ app {
     width: 150px;
     height: calc(150px * 1.50);
     cursor: pointer;
+    box-shadow: 4px 4px 10px #555;
 }
+
+
+.card-table {
+    position: relative;
+    display: inline-block;
+    background: transparent;
+    background-size: contain;
+    color: #076324;
+}
+
 
 
