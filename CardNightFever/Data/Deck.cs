@@ -23,7 +23,7 @@ namespace CardNightFever.Data
             }
         }
         /// <summary>
-        /// Indicates if the Deck contains enough cards for a full hand.
+        /// Indicates if the Deck contains enough cards to draw a full hand.
         /// </summary>
         public bool HasMin
         {

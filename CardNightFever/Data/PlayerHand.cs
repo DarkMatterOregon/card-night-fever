@@ -52,6 +52,13 @@ namespace CardNightFever.Data
                 return Cards.Count;
             }
         }
+        /// <summary>
+        /// Indicates the current score of the player's hand.
+        /// </summary>
+        public int Score
+        {
+            get;
+        }
         #endregion Properties
 
         #region Constructors
